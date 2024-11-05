@@ -1,5 +1,3 @@
-git init
-
 # 加载包
 library(sf)
 library(dplyr)
@@ -10,7 +8,6 @@ library(here)
 library(readxl)
 library(tidyr)
 #clean_name
-install.packages("janitor")
 library(janitor)
 
 # 读取数据
@@ -34,11 +31,6 @@ gii_clean <- gii %>%
   # 生成新的一列计算两年间的差异
   mutate(gii_diff = value_2019 - value_2010)
 
-# 分开两年的数据——因为分析2010和2019之间的差异，所以分开更好吗？
-gii_2010 <- gii_clean %>% filter(year ==2010)
-gii_2019 <- gii_clean %>% filter(year ==2019)
-# QUESTION!!!!生成两个表格好，还是生成两列好？？？
-
 # 读取世界地理空间数据-GeoJSON格式
 world_geojson <- st_read(here("World_Countries_(Generalized)_9029012925078512962.geojson"))
 
@@ -47,7 +39,6 @@ head(world_geojson)
 str(world_geojson)
 
 # 为了合并两个数据集，给gii生成countrycode
-install.packages("countrycode")
 library(countrycode)
 
 # 将ISO 3位代码转换为ISO 2位代码
@@ -70,10 +61,11 @@ ggplot(merged_data) +
 #应该按周把github仓库做一个份文件夹管理
 
 # 内容推送到GitHub里
-system("git init") # 初始化git仓库
-system("git add .") # 添加所以文件至暂存区
-system("git commit -m 'Add gii diff project'") # 提交更改
-system("git status")
-system("git push origin master")
-system("git log")
-
+# Commented this out as it was causing errors when running, possibly from
+# git commit message as it is trying to read the message as part of the command
+# system("git init") # 初始化git仓库
+# system("git add .") # 添加所以文件至暂存区
+# system("git commit -m 'Add gii diff project'") # 提交更改
+# system("git status")
+# system("git push origin master")
+# system("git log")
